@@ -1,0 +1,15 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+<div class="section heading">
+    
+    <script src="search.js"></script>
+    
+    <a class="header" href="index.jsp">Spitter</a>
+    <div class="search">
+        <form method="get" action="search.jsp">
+            <input type="text" id="search" name="query" placeholder="Search" />                           
+        </form>  
+    </div>
+
+    <a href="ActionServlet?action=logout" class="logout">Logout</a>
+</div>
