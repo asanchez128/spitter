@@ -4,10 +4,13 @@
     Author     : fmccown
 --%>
 
+<%@page import="edu.harding.comp431.Speets"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="edu.harding.comp431.Database"%>
+<%@taglib tagdir="/WEB-INF/tags" prefix="my" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
+<jsp:useBean id="speet" class="edu.harding.comp431.Speets" scope="request" />
 <h1>Your Speets go here!</h1>
 <%
     // Get a reference to the database
@@ -17,19 +20,22 @@
         return;
     }
 
+    if (session.getAttribute("login") == null) {
+        response.sendRedirect("login.jsp");
+    }
     // Query the database for all the speets of this user.
-    ArrayList<String> speets = spitterDatabase.getAllSpeets("bsmith");
+    String user = (String) session.getAttribute("user");
+    ArrayList<Speets> speets = spitterDatabase.getAllSpeets(user);
 
     // Display all speets
-    for (String item : speets){        
 %>
-<p><%=item%></p>
-
-
-<%
-       
-    }
-
-
-%>
-
+<ol>
+    <%
+        for (Speets item : speets) {
+            request.setAttribute("speet", item);
+    %>
+    <li><my:speet></my:speet></li>
+    <%
+      }
+    %>
+</ol>
