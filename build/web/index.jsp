@@ -57,7 +57,7 @@
                 <tr>
                     <td width="70">
                         <span id="speets-total" class="profile-stats-num">
-                           ???
+                           <%= spitterDatabase.getSpeetsTotal(user.getUsername()) %>
                         </span><br />
                         <a href="speets.jsp?limit" id="speets-link" class="profile-stats-label">Speets</a>
                     </td>
@@ -69,7 +69,7 @@
                     </td>
                     <td width="70">
                         <span class="profile-stats-num">
-                            ???
+                            <%= spitterDatabase.getFollowersTotal(user.getUsername()) %>
                         </span><br />
                         <a href="followers.jsp" id="followers-link" class="profile-stats-label">Followers</a>
                     </td>

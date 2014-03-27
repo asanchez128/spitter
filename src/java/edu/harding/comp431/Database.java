@@ -211,7 +211,78 @@ public class Database {
         return total;
     }
 
+    public int getFollowersTotal(String username) {
+
+        int total = -1;
+
+        Connection conn = null;
+        String query = null;
+
+        try {
+            query = "SELECT count(*) FROM SpitterUsers WHERE username IN"
+                    + "(SELECT username FROM Followers WHERE follows = ?) ";
+
+            conn = DriverManager.getConnection(jdbcConnectionString);
+            PreparedStatement statement = conn.prepareStatement(query);
+            statement.setString(1, username);
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                total = rs.getInt(1);
+            }
+
+            conn.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE,
+                    "Bad query: " + query, ex);
+        } finally {
+            try {
+                conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return total;
+    }
+    
+        public int getSpeetsTotal(String username) {
+
+        int total = -1;
+
+        Connection conn = null;
+        String query = null;
+
+        try {
+            query = "SELECT COUNT(*) FROM Speets WHERE username = ?";
+                    
+            conn = DriverManager.getConnection(jdbcConnectionString);
+            PreparedStatement statement = conn.prepareStatement(query);
+            statement.setString(1, username);
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                total = rs.getInt(1);
+            }
+
+            conn.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE,
+                    "Bad query: " + query, ex);
+        } finally {
+            try {
+                conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return total;
+    }
     //TODO Change type String to Speets
+
     public ArrayList<Speets> getAllSpeets(String username) {
         ArrayList<SpitterUser> followingList = new ArrayList<SpitterUser>();
         ArrayList<Speets> speets = new ArrayList<Speets>();
@@ -260,7 +331,7 @@ public class Database {
 
         try {
             query = "SELECT username, about FROM SpitterUsers WHERE username IN"
-                    + " (SELECT username FROM Followers WHERE follows = " + username + ") ";
+                    + " (SELECT username FROM Followers WHERE follows = ?)";
 
             conn = DriverManager.getConnection(jdbcConnectionString);
             PreparedStatement statement = conn.prepareStatement(query);
