@@ -15,14 +15,17 @@
 <%    
     // TODO: Make sure the user is logged in by checking "login" in session.
 	// If not logged in, redirect to login.jsp
-    
-    
+  
     // Get database from the servlet context
     Database spitterDatabase = (Database)application.getAttribute("spitterDatabase");
     if (spitterDatabase == null) {
         response.sendRedirect("ActionServlet?action=view");
         return;
     }
+    
+    if (session.getAttribute("login") == null)
+        response.sendRedirect("login.jsp");
+    
     
 %>
 <!DOCTYPE html>

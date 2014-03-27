@@ -1,7 +1,7 @@
 <%-- 
     Document   : followers
     Created on : Mar 26, 2012, 11:03:36 PM
-    Author     : fmccown
+    Author     : asanchez
 --%>
 
 <%@page import="edu.harding.comp431.SpitterUser"%>

@@ -215,7 +215,7 @@ public class Database {
     public ArrayList<Speets> getAllSpeets(String username) {
         ArrayList<SpitterUser> followingList = new ArrayList<SpitterUser>();
         ArrayList<Speets> speets = new ArrayList<Speets>();
-
+        System.out.println("Entered getAllSpeets");
         Connection conn = null;
         String query = null;
 
@@ -229,7 +229,11 @@ public class Database {
             ResultSet rs = statement.executeQuery();
 
             while (rs.next()) {
-                speets.add(new Speets(Integer.parseInt(rs.getString(0)), rs.getString(1), rs.getString(2), rs.getString(3)));
+                Speets speet = new Speets();
+                speet.setUsername(rs.getString(2));
+                speet.setMessage(rs.getString(3));
+                speet.setTimestamp(rs.getString(4));
+                speets.add(speet);
             }
 
             conn.close();
